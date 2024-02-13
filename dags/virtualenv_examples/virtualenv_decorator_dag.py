@@ -14,12 +14,13 @@ Learn more:
 """
 
 from airflow.decorators import dag, task
+from pendulum import datetime
 import pandas as pd
 import sys
 
 
 @dag(
-    start_date=None,
+    start_date=datetime(2024, 1, 1),
     schedule=None,
     doc_md=__doc__,
     description="@task.virtualenv",

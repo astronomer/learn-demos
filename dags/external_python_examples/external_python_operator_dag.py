@@ -16,6 +16,7 @@ Learn more:
 from airflow.decorators import dag, task
 from airflow.models.baseoperator import chain
 from airflow.operators.python import ExternalPythonOperator
+from pendulum import datetime
 import pandas as pd
 import sys
 import os
@@ -53,7 +54,7 @@ def my_isolated_function(num: int, word: str, logical_date_from_op_kwargs: str) 
 
 
 @dag(
-    start_date=None,
+    start_date=datetime(2024, 1, 1),
     schedule=None,
     doc_md=__doc__,
     description="ExternalPythonOperator",

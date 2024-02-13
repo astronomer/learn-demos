@@ -10,6 +10,8 @@ webserver_config.py
 airflow.cfg
 airflow.db
 
-dags/branching
-dags/kubernetes_examples
-dags/isolated_operator_dag
+dags/isolatedoperator/
+environments
+include/my_bash_script.sh
+
+dags/experimental/
