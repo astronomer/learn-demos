@@ -41,13 +41,13 @@ def external_python_decorator_dag():
 
     @task.external_python(python=os.environ["ASTRO_PYENV_epo_pyenv"])
     def my_isolated_task(
-        upstream_task_output: dict, logical_date
+        upstream_task_output: dict, logical_date  # to use the logical date the Python environment must have pendulum installed
     ):  # note that not all objects from the context can be used!
         """
         This function runs in an isolated environment.
         Args:
             upstream_task_output (dict): contains a number and a word.
-            logical_date: The logical_date of the DAG.
+            logical_date: The logical_date of the DAG Run.
         Returns:
             pd.DataFrame: A dictionary containing the transformed inputs.
         """
@@ -56,7 +56,7 @@ def external_python_decorator_dag():
 
         print(f"The python version in the virtual env is: {sys.version}")
         print(f"The pandas version in the virtual env is: {pd.__version__}")
-        print(f"The logical_date is {logical_date}")
+        print(f"The logical_date of this DAG Run is {logical_date}")
 
         num = upstream_task_output["num"]
         word = upstream_task_output["word"]
@@ -67,7 +67,7 @@ def external_python_decorator_dag():
         df = pd.DataFrame(
             {
                 "num_plus_one": [num_plus_one],
-                "word_plus_explamation": [word_plus_exclamation],
+                "word_plus_exclamation": [word_plus_exclamation],
             },
         )
 

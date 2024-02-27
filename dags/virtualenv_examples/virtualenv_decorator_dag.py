@@ -41,8 +41,8 @@ def virtualenv_decorator_dag():
     @task.virtualenv(
         requirements=[
             "pandas==1.5.1",
-            "pendulum==3.0.0",
-        ],  # pendulum is needed to use the logical date
+            "pendulum==3.0.0",  # pendulum is needed to use the logical date
+        ],
         python_version="3.10",
     )
     def my_isolated_task(
@@ -61,7 +61,7 @@ def virtualenv_decorator_dag():
 
         print(f"The python version in the virtual env is: {sys.version}")
         print(f"The pandas version in the virtual env is: {pd.__version__}")
-        print(f"The logical_date is {logical_date}")
+        print(f"The logical_date of this DAG Run is {logical_date}")
 
         num = upstream_task_output["num"]
         word = upstream_task_output["word"]

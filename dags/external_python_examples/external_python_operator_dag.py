@@ -38,7 +38,7 @@ def my_isolated_function(num: int, word: str, logical_date_from_op_kwargs: str) 
 
     print(f"The python version in the virtual env is: {sys.version}")
     print(f"The pandas version in the virtual env is: {pd.__version__}")
-    print(f"The logical_date is {logical_date_from_op_kwargs}")
+    print(f"The logical_date of this DAG run is {logical_date_from_op_kwargs}")
 
     num_plus_one = num + 1
     word_plus_exclamation = word + "!"
@@ -78,7 +78,7 @@ def external_python_operator_dag():
         python_callable=my_isolated_function,
         python=os.environ["ASTRO_PYENV_epo_pyenv"],
         op_kwargs={
-            "logical_date_from_op_kwargs": "{{ logical_date }}",
+            "logical_date_from_op_kwargs": "{{ logical_date }}", # to use the logical date the Python environment must have pendulum installed
             "num": "{{ ti.xcom_pull(task_ids='upstream_task')['num']}}",  # note that render_template_as_native_obj=True in the DAG definition
             "word": "{{ ti.xcom_pull(task_ids='upstream_task')['word']}}",
         },

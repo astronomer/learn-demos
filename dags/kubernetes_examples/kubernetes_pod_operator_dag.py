@@ -40,7 +40,7 @@ namespace = conf.get("kubernetes_executor", "NAMESPACE")
 )
 def kubernetes_pod_operator_dag():
 
-    my_isolated_task = KubernetesPodOperator(
+    KubernetesPodOperator(
         task_id="my_isolated_task",
         namespace=namespace,
         image="hello-world",

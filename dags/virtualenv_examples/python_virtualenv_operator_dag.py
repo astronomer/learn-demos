@@ -21,14 +21,14 @@ import pandas as pd
 import sys
 
 
-def my_isolated_function(num: int, word: str, logical_date_from_op_kwargs: str) -> dict:
+def my_isolated_function(num: int, word: str, logical_date_from_op_kwargs) -> dict:
     """
     This function will be passed to the PythonVirtualenvOperator to
     run in an isolated environment.
     Args:
         num (int): An integer to be incremented by 1.
         word (str): A string to have an exclamation mark added to it.
-        logical_date_from_op_kwargs (str): The logical_date of the DAG.
+        logical_date_from_op_kwargs: The logical_date of the DAG.
     Returns:
         pd.DataFrame: A dictionary containing the transformed inputs.
     """
@@ -37,7 +37,7 @@ def my_isolated_function(num: int, word: str, logical_date_from_op_kwargs: str) 
 
     print(f"The python version in the virtual env is: {sys.version}")
     print(f"The pandas version in the virtual env is: {pd.__version__}")
-    print(f"The logical_date is {logical_date_from_op_kwargs}")
+    print(f"The logical_date of this DAG Run is {logical_date_from_op_kwargs}")
 
     num_plus_one = num + 1
     word_plus_exclamation = word + "!"
@@ -77,8 +77,8 @@ def python_virtualenv_operator_dag():
         python_callable=my_isolated_function,
         requirements=[
             "pandas==1.5.1",
-            "pendulum==3.0.0",
-        ],  # pendulum is needed to use the logical date
+            "pendulum==3.0.0",  # pendulum is needed to use the logical date
+        ],
         python_version="3.10",
         op_kwargs={
             "logical_date_from_op_kwargs": "{{ logical_date }}",
